@@ -1,0 +1,70 @@
+# Default configuration for embodied learning framework
+
+# Environment settings
+environment:
+  dt: 0.02
+  gravity: -9.81
+  friction: 0.5
+  max_episode_steps: 1000
+  observation_noise: 0.01
+  partial_observability: true
+  vision_range: 10.0
+  vision_angle: 120.0
+
+# World model settings
+world_model:
+  latent_dim: 256
+  hidden_dim: 512
+  action_dim: 4
+  proprio_dim: 10
+  vision_shape: [64, 64, 3]
+  touch_dim: 8
+  learning_rate: 0.0003
+  kl_weight: 0.1
+  reconstruction_weight: 1.0
+  reward_weight: 1.0
+
+# Policy settings
+policy:
+  latent_dim: 256
+  action_dim: 4
+  hidden_dims: [256, 256]
+  learning_rate: 0.0003
+  entropy_coef: 0.01
+  value_loss_coef: 0.5
+  max_grad_norm: 0.5
+
+# Intrinsic motivation settings
+intrinsic_motivation:
+  prediction_error_weight: 0.1
+  goal_imagination_weight: 0.05
+  normalize_rewards: true
+  running_mean_window: 1000
+
+# Training settings
+training:
+  num_steps: 1000000
+  batch_size: 64
+  buffer_size: 100000
+  gamma: 0.99
+  gae_lambda: 0.95
+  ppo_epochs: 4
+  ppo_clip: 0.2
+  extrinsic_reward_weight: 1.0
+  intrinsic_reward_weight: 0.1
+  policy_update_freq: 2048
+  world_model_update_freq: 1
+  save_interval: 10000
+  eval_interval: 5000
+  device: "cuda"  # or "cpu"
+
+# Logging settings
+logging:
+  log_interval: 100
+  tensorboard: true
+  log_dir: "./logs"
+  checkpoint_dir: "./checkpoints"
+
+# Reproducibility
+seed: 42
+deterministic: false
